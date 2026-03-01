@@ -1,27 +1,26 @@
+import java.util.List;
+
 public class ClassroomController {
     private final DeviceRegistry reg;
 
     public ClassroomController(DeviceRegistry reg) { this.reg = reg; }
 
     public void startClass() {
-        SmartClassroomDevice pj = reg.getFirstOfType("Projector");
-        pj.powerOn();
+        InputConnectable pj = reg.getFirst(InputConnectable.class);
+        ((Switchable) pj).powerOn();
         pj.connectInput("HDMI-1");
 
-        SmartClassroomDevice lights = reg.getFirstOfType("LightsPanel");
-        lights.setBrightness(60);
+        reg.getFirst(BrightnessControl.class).setBrightness(60);
+        reg.getFirst(TemperatureControl.class).setTemperatureC(24);
 
-        SmartClassroomDevice ac = reg.getFirstOfType("AirConditioner");
-        ac.setTemperatureC(24);
-
-        SmartClassroomDevice scan = reg.getFirstOfType("AttendanceScanner");
-        System.out.println("Attendance scanned: present=" + scan.scanAttendance());
+        System.out.println("Attendance scanned: present=" + reg.getFirst(Scannable.class).scanAttendance());
     }
 
     public void endClass() {
         System.out.println("Shutdown sequence:");
-        reg.getFirstOfType("Projector").powerOff();
-        reg.getFirstOfType("LightsPanel").powerOff();
-        reg.getFirstOfType("AirConditioner").powerOff();
+        List<Switchable> switchables = reg.getAll(Switchable.class);
+        for (Switchable s : switchables) {
+            s.powerOff();
+        }
     }
 }
