@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(javac:*)",
+      "Bash(java:*)",
+      "Read(//usr/lib/**)",
+      "Read(//usr/**)",
+      "Bash(git -C /home/pookie/Desktop/SST28-LLD101 config user.name)",
+      "Bash(git -C /home/pookie/Desktop/SST28-LLD101 config user.email)",
+      "Bash(gh auth status:*)",
+      "Bash(git config:*)",
+      "Bash(gh api:*)",
+      "Bash(echo:*)",
+      "Read(//home/pookie/.config/**)",
+      "Read(//home/pookie/**)",
+      "Bash(gh repo create:*)",
+      "Bash(/snap/bin/gh repo create:*)",
+      "Bash(script -qc \"gh repo create SST28-LLD101 --public --source=. --push\" /tmp/gh_script.txt)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
+    ],
+    "additionalDirectories": [
+      "/tmp"
+    ]
+  }
+}
